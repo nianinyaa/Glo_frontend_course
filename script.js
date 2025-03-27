@@ -17,3 +17,4 @@ let greet = prompt("What is your name, brooo?");
 alert(`Good morning ${greet}!`);
 
 console.log("Homie, you are the best");
+123;
