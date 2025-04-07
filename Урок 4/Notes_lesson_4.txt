@@ -1,0 +1,120 @@
+УРОК 4. Функции, анонимные функции, callback - функции, чистые функции
+
+Свойство функции передача аргумента 
+Пример до: 
+
+function cleanHandsOperation (){
+    function dirtyHands (){
+        console.log('Испачкать руки');
+    }
+
+function goToTheBathroom (){
+        console.log('Пойти в ванную комнату');
+    }
+
+function cleanHands (){
+        console.log('Вымыть руки');
+    }
+
+dirtyHands()
+goToTheBathroom()
+cleanHands ()
+}
+
+cleanHandsOperation()
+
+Пример после:
+
+function cleanHandsOperation() {
+    function (str){
+        console.log(str)
+    }
+    
+    step('Испачкать руки')
+    step('Пойти в ванную комнату')
+    step('Вымыть руки')
+
+    cleanHandsOperation()
+}
+
+СПОСОБЫ ОБЪЯВЛЕНИЯ Функции
+1) Объявление функции типа function declaration
+- доступна и ДО и ПОСЛЕ ее объявления
+На практике: если ДО - то плохо, всплытие => потеря контроля над программой
+2) Объявление функции типа function exprression 
+
+const cleanHandsOperation() {
+    const step = function (str){
+        console.log(str)
+    }
+    
+    step('Испачкать руки')
+    step('Пойти в ванную комнату')
+    step('Вымыть руки')
+
+    cleanHandsOperation()
+}
+
+Если вызовем такой код ДО описания - ошибка
+После все ок. 
+
+АВТОР ПРЕДПОЧИТАЕТ function exprression ПОСЛЕ объявления. 
+
+3) Объявление функции через new Function . Редко и от безна деги 
+
+const cleanHandsOperation() {
+const step = new Function ('str', 'console.log(str)')
+ step('Испачкать руки')
+    step('Пойти в ванную комнату')
+    step('Вымыть руки')
+} 
+cleanHandsOperation()
+
+ОПЕРАТОР RETURN
+
+Возвращает значение и останавливат программу. 
+
+const countSum = function(a, b) {
+    return a + b
+    console.log('Не будет отработано') - потому что после return   
+}
+res  countSum (3,5)
+console.log(res)
+
+Сокращенно =>
+const countSum = function(a, b){
+    return a + b
+}
+console.log(countSum(3,5))
+
+ЗАДАНИЕ ЗНАЧЕНИЙ ПАРАМЕТРОВ ПО УМОЛЧАНИЮ 
+Если есть операция, например, сложения, и указывается значения только одной переменной, а второй нет, то результат всей операции будет NAN 
+Колоичество передаваемых аргументов не ограничено
+
+значение по умолчанию задается в самой функции: 
+
+const countSum = function(a, b = 0) {  - b задано по умолчанию 
+return a + b
+}
+console.log(countSum(3,10)) - это значение перебьет указанный выше ноль, но если его не будет указано, подставит 0
+
+ПСЕВДОМАССИВ arguments
+
+из него можно достать любой указанный аргумент - мало используется, но знать надо 
+
+ЧИСТАЯ ФУНКЦИЯ = детерминированные 
+ функция, результат работы которой зависит только от входных параметров 
+ не может иметь побочных эффектов (вызовы в консоль, алерты, обращения к серверу, обращение к дереву ДОМ)
+
+ CALLBACK 
+это функция обратного вызова 
+
+АНОНИМНЫЕ ФУНКЦИИ
+пример: 
+const countSum = function(a, b, callback){
+    return a + callback(b)
+}
+
+console.log(countSum(3,10,function(num){
+    return num + 2
+}))
