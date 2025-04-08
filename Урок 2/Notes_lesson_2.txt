@@ -1,4 +1,0 @@
-Курс Glo-Academy по Javascript.
-
-Урок 2.
-  
