@@ -117,7 +117,3 @@ ParseFloat - чтобы получить дробное число
 
 Синтаксис
 условие ? выражение1 : выражение2
-const age = 16;
-let stop = false;
-
-age > 18 ? location.assign("continue.html") : (stop = true);
