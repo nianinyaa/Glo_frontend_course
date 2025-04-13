@@ -1,0 +1,382 @@
+УРОК 7. ЧАСТЬ 1. ОБЪЕКТЫ, МАССИВЫ6 ПСЕВДОМАССИВЫ
+
+ МАССИВ - тип данных (не примитивный), хранит коллекции данных разных типов(строки, числ и тд).
+
+В других переменных тип объекта всегда один. Он может меняться в результате определенных действий, но он один.  
+
+СПОСОБЫ СОЗДАНИЯ ОБЪЕКТОВ. 
+1) Через фигурные скобки {}
+2) Через конструктор  newObject() - редко
+
+Все объекты внутри себя объект хранит как ключ-значение - через двоеточие. 
+Вместо значения может выступать переменная. 
+
+let person = {
+    name: 'Alex'; //указали сразу при инициализации
+}
+
+можно и через переменную: 
+let  name = 'Alex';
+let person = {
+    name: 'Alex';
+}
+
+console.log(name);
+console.log(person);
+
+Можно указывать ключи и через кавычки - одинарные или двойные
+
+
+Способы создания свойства внутри объектов:
+1) Объявить внутри объекта 
+2) Через точеченую нотацию (Пример ниже)
+
+let  name = 'Alex';
+let person = {
+    name: 'Alex';
+    person.age = 33;
+} //, где age это свойство и добавляется через точку и равносильно age: 33;
+
+console.log(person.age);
+--- > можно передавать в квадратных скобках и строкой -- > console.log(person ['age']);
+
+
+
+КОНСТРУКТОР newObject
+
+let  name = 'Alex';
+let person = {
+    name: 'Alex';
+    person.age = 33;
+} //, где age это свойство и добавляется через точку и равносильно age: 33;
+
+  //предыдущий кусок кода
+
+
+let job = newObject()
+job.position = 'developer';
+
+person.job =  job // создали свойство в виде объекта job к массиву с названием person(выше). Получаем вложенный объект внутри объекта
+
+
+console.log(person);
+console.log(job);
+console.log(person.age); 
+
+
+В JS файлы просто так не копируются , а оставляют ссылку на другой объект ---->
+
+
+let person = {
+    name: 'Alex',
+    age: 33,
+} 
+
+let job ={ 
+position = 'middle-developer',
+salary: 
+}
+ 
+person.job =  job;
+person.job.position = 'senior-developer';
+
+console.log(person);
+console.log(job);
+console.log(person.age); 
+console.log(person.job === job)
+
+В объекте person лежит лишь ссылка на объект job. И изменения в job потянутся и в person. Такие изменения РАБОТАЮТ В ОБЕ СТОРОНЫ.
+
+
+Можно указать сразу при инициализации: 
+
+
+let person = {
+    name: 'Alex',
+    age: 33,
+    job: { 
+position = 'middle-developer',
+salary: 10000000}
+} 
+
+console.log(person);
+console.log(person.age);  ---> Получаем объект, в котором находится свойтво в виде объекта со своими свойствами.  
+
+Свойством оъекта может быть ФУНКЦИЯ: 
+let person = {
+    name: 'Alex',
+    age: 33,
+    job: { 
+position = 'middle-developer',
+salary: 10000000}
+} 
+
+const say = function(str){
+    console.log(str); // функция выводит строку   
+}
+
+person.say = say; // Создали свойство объекта person под названием say и передали в значение функцию say
+ console.log('Hello world');
+
+
+console.log(person);
+console.log(person.age);
+
+или напрямую без объявления константы say -->
+
+let person = {
+    name: 'Alex',
+    age: 33,
+    job: { 
+position = 'middle-developer',
+salary: 10000000}
+} 
+
+
+person.say = function(str){
+    console.log(str)
+    }; 
+
+    person.say = say; // // Создали свойство объекта person под названием say и передали в значение функцию say и передаем значение в функцю say  
+
+person.say('Hello world'); //вызываем функцию, передав в нее Hello world;
+
+
+console.log(person);
+
+УКАЗАТЬ СВОЙСТО ОБЪЕКТА СРАЗУ ПРИ ИНИЦИАЛИЗАЦИИ 
+
+let person = {
+    name: 'Alex',
+    age: 33,
+    job: { 
+position = 'middle-developer',
+salary: 10000000},
+say: function(str){
+    console.log(str)
+    }; 
+} 
+
+person.say('Hello world'); 
+console.log(person);
+
+ФУНКЦИЯ ВНУТРИ ОБЪЕКТА НАЗЫВАЕТСЯ МЕТОД
+Метод = функция, вложенная в объект 
+
+Пару ключ-значениие можно собрать из переменных.
+
+let key = 'city',
+let city = 'Minsk',
+
+let person = {
+    name: 'Alex',
+    age: 33,
+    job: { 
+position = 'middle-developer',
+salary: 10000000
+},
+
+say: function(str){
+    console.log(str)
+    }; 
+} 
+
+person.say('Hello world'); 
+person[key] = city
+
+console.log(person);
+
+или так: 
+let key = 'city',
+let city = 'Minsk',
+
+let person = {
+    [key]: 'Alex',
+    age: 33,
+    job: { 
+position = 'middle-developer',
+salary: 10000000
+},
+
+say: function(str){
+    console.log(str)
+    }; 
+} 
+
+person.say('Hello world'); 
+
+
+console.log(person);
+
+// в консоль выведется в свойствах объекта city Minsk 
+
+
+
+МАССИВ 
+для хранения структурированных данных
+может хранить значения любых типов данных
+ОТ объекта отличается тем, что вместо именованного ключа использует индекс
+отсчет с 0
+является объектом, видоизмененным для удобства работы 
+
+
+СВОЙСТВО array.length 
+ 
+ Если передать одно значение, то это будет означать длину массива. 
+ let array2 = newArray(3)
+ console.log(array2) // выведет длину массива = 3
+
+ Задать длину массива 
+
+ let array = [1,2,3,4,5]
+ array.length = 3 0
+ console.log(array);
+
+ Полностью очистить массив 
+let array = [1,2,3,4,5]
+ array.length = 0
+ console.log(array);
+
+
+ МЕТОДЫ РАБОТЫ С МАССИВАМИ 
+
+push и unshift добавляют элементы в массив 
+
+push - в конец 
+unshift - в начало
+При этом пересматриваются индексы. 
+Могут добавлять сразу несколько элементов
+ПРОСТО МЕНЯЮТ ИСХОДНЫЙ МАССИВ 
+
+
+
+let array = ['Apple', 'Orange', 'Banana']
+
+array.push('Kiwi')
+array.unshift('Papaya', 'Mango')
+console.log(array)
+
+
+противоположные методы POP и SHIFT 
+
+pop удаляет элементы с конца
+
+
+shift - удаляет с самого начала
+
+!ИМЕННО ВОЗВРАЩАЮТ ЗНАЧЕНИЯ первых или последних элементов 
+ПРОСТО МЕНЯЮТ ИСХОДНЫЙ МАССИВ И ВОЗВРАЩАЮТ ЕГО ОБРАТНО
+как будто вырезают элементы из массива и возвращают 
+Эту часть можно сохранить в переменную и дальше использовать в коде 
+
+let array = ['Apple', 'Orange', 'Banana']
+
+array.pop() ---> console.log(array.pop())
+array.shift()
+
+
+console.log(array)
+
+------
+let array = ['Apple', 'Orange', 'Banana']
+
+let lastElement = array.pop()
+console.log(lastElement)
+
+array.shift()
+ 
+
+console.log(array)
+
+
+МЕТОД sort()
+выстраивает по алфавиту 
+
+МЕТОД reverse ()
+массив развернулся, первый элемент стал последним, а последний - первым 
+
+МЕТОДЫ ДО ЭТОГО МЕНЯЮТ ИСХОДНЫЙ МАССИВ
+
+НО! НЕ ВСЕ МЕТОДЫ МЕНЯЮТ ИСХОДНЫЙ МАССИВ 
+ 
+
+МЕТОД join() 
+ТОЛЬКО ВОЗВРАЩАЕТ значения как строки и добавляет разделител - запятую (по умолчанию)
+если указать иное - будем разделено им 
+
+... то же код что и выше
+
+console.log(array.join(', '));
+
+если указать array.join(','), то получим тот же массив. Потому что метод только ВОЗВРАЩАЕТ массив, а не изеняет его
+
+console.log(array)
+
+МЕТОД obj()
+для перебора асех средств и методов массива
+
+let obj = {
+    name: "Alex",
+    age:23,
+    isStudent: false;
+}
+
+
+for(let key in obj){  //<-это переменная, в которой будут храниться ключи, перебирваем каждый ключ ынутри каждого объекта
+ console.log( "Клбч:" +key + " " + "Значение" + obj[key]);
+}
+
+
+ГЛОБАЛЬНЫЙ ОБЪЕКТ Object.keys()
+let obj = {
+    name: "Alex",
+    age:23,
+    isStudent: false;
+}
+
+
+for(let key in obj){  //<-это переменная, в которой будут храниться ключи, перебирваем каждый ключ ынутри каждого объекта
+ console.log(Object.keys(obj ));
+}
+
+
+ЦИКЛ forOf
+
+В консоли поочерено получаем каждый ЭЛЕМЕНТ массива
+
+let array = [1,2,3,4,5]
+for(let key of array){
+    console.log(key);
+}
+
+Если применить forIn, то выведет не элементы, а ИНДЕКСЫ. И при изменении значений элементов, ничего в консоли не изменится - индекс-то остался
+
+ОПЕРАТОР DELETE 
+нужен,  чтобы удалять ЭЛЕМЕНТЫ из массивов и объектов 
+   let array = [1,2,3,4,5]
+
+   delete array[2]
+   console.log(array); // в консоли будет список цифр без 3. на ее месте empty
+
+КАК РАБОТАЕТ С ОБЪЕКТОМ
+
+let obj = {
+    name: 'Alex'
+    age: 23 
+
+}
+console.log(obj)
+
+/// хорошо удаляет элементы из массива
+
+!НО с массивом могут быть проблемы, т к индексы не пересматриваются  
+Для удаления из массива лучше использовать другие методы 
+
+
+
+ПСЕВДОМАССИВЫ 
+НЕ ИМЕЮТ МЕТОДОВ ДЛЯ РАОТЫ С МАССИВАМИ 
+
+
+
+
