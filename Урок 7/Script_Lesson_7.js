@@ -1,3 +1,6 @@
+"use strict";
+//УРОК 7. ОПТИМИЗАЦИЯ КОДА ИЗ УРОКА 5
+
 const appData = {
   title: "",
   screens: "",
@@ -9,103 +12,106 @@ const appData = {
   servicePercentPrice: 0,
   service1: "",
   service2: "",
-};
-
-//УРОК 7. ОПТИМИЗАЦИЯ КОДА ИЗ УРОКА 5
-
-let title;
-let screens;
-let screenPrice;
-let adaptive;
-let rollback = 30;
-let allServicePrices;
-let fullPrice;
-let servicePercentPrice;
-let service1;
-let service2;
-
-const isNumber = function (num) {
-  return !isNaN(parseFloat(num) && isFinite(num));
-};
-
-//Далее ниже не совсем поняла откуда функция asking взялась
-
-const asking = function () {
-  title = prompt("Как называется ваш проект?", "Калькулятор верстки");
-  screens = prompt(
-    "Какие типы экранов нужно разработать ?",
-    "Простые, Сложные"
-  );
-
-  do {
-    screenPrice = prompt("Сколько будет стоить данная работа?", "1200");
-  } while (!isNumber(screenPrice));
-  adaptive = confirm("Нужен ли адаптив на сайте?");
-};
-
-const getAllServicePrices = function () {
-  let sum = 0;
-  for (let i = 0; i < 2; i++) {
-    let price = 0;
-
-    if (i === 0) {
-      service1 = prompt("Какой дополнительный тип услуги нужен?");
-    } else if (i === 1) {
-      service2 = prompt("Какой дополнительный тип услуги нужен?");
-    }
-
+  asking: function () {
+    appData.title = prompt("Как называется ваш проект?", "Калькулятор верстки");
+    appData.screens = prompt(
+      "Какие типы экранов нужно разработать?",
+      "Простые, Сложные"
+    );
     do {
-      price = prompt("Сколько это будет стоить?");
-    } while (!isNumber(price));
+      appData.screenPrice = prompt(
+        "Сколько будет стоить данная работа?",
+        "1200"
+      );
+    } while (!appData.isNumber(appData.screenPrice)); //Почему после ! isNumber стоит с appData ??
+    appData.adaptive = confirm("Нужен ли адаптив на сайте?");
+  },
 
-    sum += +price;
-  }
+  isNumber: function (num) {
+    return !isNaN(parseFloat(num) && isFinite(num)); //???
+  },
 
-  return sum;
+  getAllServicePrices: function () {
+    let sum = 0;
+    for (let i = 0; i < 2; i++) {
+      let price = 0;
+
+      if (i === 0) {
+        appData.service1 = prompt("Какой дополнительный тип услуги нужен?");
+      } else if (i === 1) {
+        appData.service2 = prompt("Какой дополнительный тип услуги нужен?");
+      }
+
+      do {
+        price = prompt("Сколько это будет стоить?");
+      } while (!appData.isNumber(price));
+
+      sum += +price;
+    }
+    return sum;
+  },
+
+  showTypeof: function (variable) {
+    console.log(variable, typeof variable);
+  },
+
+  getFullPrice: function () {
+    return +appData.screenPrice + appData.allServicePrices;
+  },
+
+  getServicePercentPrice: function () {
+    return appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
+  },
+
+  getTitle: function () {
+    return (
+      appData.title.trim()[0].toUpperCase() +
+      appData.title.trim().substr(1).toLowerCase()
+    );
+  },
+
+  getRollbackMessage: function (price) {
+    if (price >= 30000) {
+      return "Даем скидку 10%";
+    } else if (price >= 15000 && price < 30000) {
+      return "Даем скидку 5%";
+    } else if (price >= 0 && price < 15000) {
+      return "Скидка не предусмотрена";
+    } else {
+      return "Что-то пошло не так";
+    }
+  },
+
+  start: function () {
+    appData.asking();
+    appData.allServicePrices = appData.getAllServicePrices();
+    appData.fullPrice = appData.getFullPrice();
+    appData.servicePercentPrice = appData.getServicePercentPrice();
+    appData.title = appData.getTitle();
+    appData.logger();
+  },
+
+  logger: function () {
+    // console.log(appData.title);
+    // console.log(appData.servicePercentPrice);
+    // console.log(appData.fullPrice);
+    // console.log(appData.allServicePrices);
+    // console.log(appData.servicePercentPrice);
+
+    for (let key in appData) {
+      if (typeof appData[key] !== "function") {
+        console.log(`Свойство: ${key} = ${appData[key]}`); // сама сначала вводила in , затем поменяла на =
+      } else {
+        console.log(`Метод: ${key}()`); //! внимание на скобки после ключа - как пишется для обозначения функции
+      }
+    }
+  },
 };
-const showTypeof = function (variable) {
-  console.log(variable, typeof variable);
-};
 
-const getFullPrice = function () {
-  return +screenPrice + allServicePrices;
-};
+appData.start();
 
-const getServicePercentPrice = function () {
-  return fullPrice - fullPrice * (rollback / 100);
-};
-
-const getTitle = function () {
-  return title.trim()[0].toUpperCase() + title.trim().substr(1).toLowerCase();
-};
-
-const getRollbackMessage = function (price) {
-  if (price >= 30000) {
-    return "Даем скидку 10%";
-  } else if (price >= 15000 && price < 30000) {
-    return "Даем скидку 5%";
-  } else if (price >= 0 && price < 15000) {
-    return "Скидка не предусмотрена";
-  } else {
-    return "Что-то пошло не так";
-  }
-};
-
-asking();
-allServicePrices = getAllServicePrices();
-fullPrice = getFullPrice();
-servicePercentPrice = getAllServicePrices();
-title = getTitle();
-
-showTypeof(title);
-showTypeof(screenPrice);
-showTypeof(adaptive);
-
-console.log("allServicePrices", allServicePrices);
-console.log("getRollbackMessage"(fullPrice));
-console.log(typeof title);
-console.log(typeof screenPrice);
-console.log(typeof adaptive);
-
-console.log(screens.length);
-console.log(servicePercentPrice);
+// appData.asking();
+// appData.allServicePrices = appData.getAllServicePrices();
+// appData.fullPrice = appData.getFullPrice();
+// appData.servicePercentPrice = appData.getServicePercentPrice();
+// appData.title = appData.getTitle();
