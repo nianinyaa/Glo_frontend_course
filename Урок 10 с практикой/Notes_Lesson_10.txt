@@ -1,0 +1,165 @@
+УРОК 10
+Работа с DOM 
+
+МЕТОД remove()
+
+const lists = document.querySelectorAll.remove('.list')
+const elems = document.querySelectorAll.remove('.elem')
+
+console.log(lists);
+console.log(elems)
+
+
+elems[2].remove() // удаляются 2 и 4 элемент
+elems[4].remove()
+console.log(elems)
+
+lists[0] - первый список 
+lists[1] - второй список, куда будут попадать элементы 
+
+МЕТОД append() 
+
+ПЕРЕМЕЩАЕТ элемент из одного места в другое, внутрь элемента, к которому обращаемся 
+также добавляет только в конец, после всех заданных и вновь заданных элементов 
+
+lists[1].append(elems[2])
+lists[1].append(elems[4])// элементы 2 и 4 добавились в список lists
+списки поменялись местами
+Можно заменить строкой
+
+
+МЕТОД prepend() 
+вставляет элементы в самое начало элемента, к которому мы применяем метод 
+Можно заменить строкой
+
+
+lists[1].prepend(elems[5]) // элемент встал в самое начало 
+
+МЕТОДЫ, КОТОРЫЕ ВСТАВЛЯЮТ ДО ИЛИ ПОСЛЕ ОПРЕДЕЛЕННОГО ЭЛЕМЕНТА 
+
+МЕТОД BEFORE
+
+lists[0].before(lists[1]) - переставляет, меняет местами 
+
+elems[3].before(elems[0]) - переставляет элемент 0 перед элементом 3
+Можно заменить строкой
+
+МЕТОД AFTER
+перемещает элемент после определенного элемента, к которому мы обратились с этим методом
+lists[0].before(lists[1]) 
+lists[0].after(lists[1]) - переставляет, меняет местами 
+Можно заменить строкой
+
+МЕТОД replaceWith()
+
+Заменим 4-й элемент 2-м элементом
+
+elems[4].replaceWith(elems[2])
+Элемент 2 заменит элемент 4, причем элемент 4 будет вытеснен из списка
+
+Можно заменить строкой: 
+elems[4].replaceWith('Привет, номер 4') - 'элемент 4 полностью убран из верстки, вместо него - строка 
+
+
+МЕТОДЫ, КОГЛДА НАДО СКОПИРОВАТЬ(КЛОНИРОВАТЬ) ЭЛЕМЕНТ В ДРУГОЙ ЭЛЕМЕНТ 
+
+const cloneElem = elems[3]
+console.log(cloneElem) - увидим полную ссылку на третий элемент
+
+В cloneElem лежит не копия элемента elems[3], а ссылка на элемент 
+
+
+
+ЧТОБЫ ПОЛУЧИТЬ ПОЛНУЮ КОПИЮ - МЕТОД cloneNode
+
+const cloneElem = elems[3].cloneNode -- но так получим только первую ноду 
+
+Чтобы получить все Ноды, включенные в данный узел, 
+нужно передать внутрь cloneNode() значение true, тогда получим весь узел целиком(включая текст и элементы внутри узла)
+
+
+
+const cloneElem = elems[3].cloneNode(true)
+list[1].append(cloneElem) // вставили клонированный элемент 
+в новый список, но он остается и в исходном списке 
+console.log(cloneElem);
+
+По умолчанию - значение false 
+
+
+МЕТОД textContent()
+
+сделаем элемент зеленым, изменим текст и добавим класс
+
+cloneElem.classList.add('green-color')
+cloneElem.textContent = 'step 6'
+
+Если хотим добавить те, то нужно  
+
+СВОЙСТВО innerHTML
+данное свойство хранит всю верстку элемента 
+
+cloneElem.innerHTML = '<strong>step 6</strong>' // элемент станет жирным 
+НО! Затирает все, что было написано до 
+
+
+СОЗДАНИЕ НОВЫХ ЭЛЕМЕНТОВ С НУЛЯ 
+
+const newElem = document.createElement('li')
+console.log(newElem); // будет пусто, потому что нет элемента на странице 
+
+newElem.textContent = 'step 6';
+newElem.classList.add('elem');
+
+lists[1].append(newElem) // добавился во второй список, это новый элемент 
+
+создать можно любой тег 
+
+const title = document.getElementById('title')
+
+console.log(title);
+ 
+ МЕТОД insertAdjacentText()
+ первым аргументом получает настройку, вторым - текст 
+добавляет текст без удаления старого
+
+ 1) beforebegin 
+title.insertAdjacentText('beforebegin', 'beforebegin')
+console.log(title); //на уровень выше заголовка
+
+2) afterend
+title.insertAdjacentText('afterend', 'beforebegin')
+console.log(title);// на уровень ниже заголовка 
+
+3) beforeend
+title.insertAdjacentText('beforeend', 'beforeend')
+console.log(title);// вставить html непосредственно после elem.
+
+4) afterbegin
+title.insertAdjacentText('afterbegin', 'afterbegin')
+console.log(title);// вставить html в начало elem,
+
+
+МЕТОД insertAdjacentElement()
+
+вместо строки передаем именно элемент 
+
+остальное - так же как у insertAdjacentText()
+title.insertAdjacentText('beforebegin', 'elems[0]')
+title.insertAdjacentText('afterend', 'elems[1]')
+title.insertAdjacentText('beforeend', 'elems[2]')
+title.insertAdjacentText('afterbegin', 'elems[3]')
+
+МЕТОД insertAdjacentHTML()
+
+Вторым аргументом принимает именно верстку, можно вставлять именно куски верстки
+
+title.insertAdjacentText('beforebegin', '<span> step 1</span>')
+title.insertAdjacentText('afterend', '<span> step 2</span>')
+title.insertAdjacentText('beforeend', '<span> step 3</span>')
+title.insertAdjacentText('afterbegin', '<span> step 4</span>')
+
+
+
+
+
