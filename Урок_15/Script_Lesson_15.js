@@ -1,93 +1,43 @@
-const todoControl = document.querySelector('.todo-control')
-const headerInput = document.querySelector('.header-input')
-const todoList = document.querySelector('.todo-list')
-const todoCompleted = document.querySelector('.todo-completed')
+"use strict";
 
-const toDoData[];
+const DomElement = function (selector, height, width, bg, fontSize) {
+  this.selector = selector;
+  this.height = height;
+  this.width = width;
+  this.bg = bg;
+  this.fontSize = fontSize;
+};
 
-const loadFromLocalStorage = function(){ // в принципе задаем эту функцию, но не вызываем ее, вызов - в конце, после всех функций
-    const savedData = localStorage.getItem('todoData'); //откуда подтягивает данные,и почему так называем?
-    if(savedData){
-        toDoData = JSON.parse(savedData);
-    }
-}
+// const element = new DomElement(".container", 200, 300, "#f0f0f0", 16);
+// console.log(element.selector);
+// console.log(element.width);
 
+DomElement.prototype.createElement = function () {
+  let element;
 
-const saveToLocalStorage = function(){ 
-    localStorage.setItem('todoData', JSON.stringify(toDoData)); // почему todoData и toDoData ??
-}
+  if (this.selector.startsWith(".")) {
+    element = document.createElement("div");
+    element.className = this.selector.slice(1);
+  } else if (this.selector.startsWith("#")) {
+    element = document.createElement("p");
+    element.id = this.selector.slice(1);
+  }
 
+  //   element.textContent = "Этот элемент был создан через DomElement";
+  const userText = prompt("Какой сегодня день недели?");
+  element.textContent = userText || "Текст не введен";
 
-const render = function(){
-    todoList.innerHTML = " ";
-    todoCompleted.innerHTML = " ";
+  element.style.cssText = `
+  height: ${this.height}px; width: ${this.width}px; background: ${this.bg}; font-size: ${this.fontSize}px
+  `;
 
-    toDoData.forEach(function(item){ // запуталсь, когда объявлять через const когда нет 
-        const li = document.createElement('li');
+  document.body.append(element); //добавит в конец body. Если без этой строчки - то в js создастся, но виден не будет
+};
 
-        li.classList.add('todo-item');
-        li.innerHTML = '<span class="text-todo"> ' +item.text + '</span>'+
-            '<div class="todo-buttons>'+
-            '<button class="todo-remove"></button>'+            
-            '<button class="todo-complete"></button>'+
-            '</div>'
+const myElement = new DomElement(".block", 100, 200, "lightblue", 16);
 
-            // if(item == " "){
-            //     render()
-            // }
+const myElement2 = new DomElement("#weather", 300, 500, "green", 12);
 
-            if(item.completed){
-                todoCompleted.append(li);
-            }else{
-                todoList.append(li)
-            };
+myElement.createElement();
 
-        li.querySelector('.todo-complete').addEventsListener('click', function(){
-            item.completed =!item.completed;
-            render();
-        });
-
-        li.querySelector('.todo-remove').addEventListener('click', function(){
-            // let deleteText = 'Купить хлеб'; -  почему нельзя так оставить?
-            const deleteIndex = toDoData.findIndex(function(item){
-                return item.text === deleteText;
-            })
-
-            if(deleteIndex !== -1){
-                toDoData.splice(deleteIndex,1); // метод splice изменяет исходный маасив, умеет убирать и добавлять элементы - в [] - какой элемент удаляем и сколько позиций удаляем 
-
-                render();
-            }
-            // )   // ???
-        });     
-
-    }); 
-    saveToLocalStorage();
-        
-}
-
-
-todoControl.querySelector('submit', function(event){
-    event.preventDefault();
-    
-
-const taskText = headerInput.value.trim();    
-    if(taskText === ''){
-        alert('Введите дело!');
-        return; 
-    }
-
-    const newToDo = { // а вот тут уже есть const - почему?
-            text: taskText,
-            completed: false,   
-        };
-        toDoData.push(newToDo);
-        render();
-});
-
-
-loadFromLocalStorage(); // непосредственно загружаем при открытии страницы 
-render();
-
-
-//ЗАДАНИЕ Учесть вариант отсутствия объекта в localstorage пользователя при первой загрузке страницы) - как делать? Вопрос к куратору, не знаю, какой метод подойдет 
+myElement2.createElement();
