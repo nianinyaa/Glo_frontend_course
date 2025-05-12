@@ -70,6 +70,7 @@ clientTop
 clientLeft
  
 Мы повлиять не можем 
+
 А на свойства 
 scrollLeft
 scrollTop 
