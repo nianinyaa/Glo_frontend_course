@@ -67,4 +67,6 @@ const modalWindow = () => {
   });
   window.addEventListener("resize", handleResize);
 };
+
+modalWindow()
 export default modal;

@@ -1,6 +1,5 @@
-//import timer from "./modules/timer.js";
+import timer from "./modules/timer.js";
 import menu from "./modules/menu.js";
 
 menu("Текст");
-
-//timer("11 may 2025");
+timer("17 May 2025");

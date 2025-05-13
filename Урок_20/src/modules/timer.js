@@ -39,9 +39,9 @@ const timer = (deadline) => {
   const updateClock = () => {
     let getTime = getTimeRemaining();
 
-    timerHours.textContent = String(time.hours).padStart(2, "0");
-    timerMinutes.textContent = String(time.minutes).padStart(2, "0");
-    timerSeconds.textContent = String(time.seconds).padStart(2, "0");
+    timerHours.textContent = String(getTime.hours).padStart(2, "0");
+    timerMinutes.textContent = String(getTime.minutes).padStart(2, "0");
+    timerSeconds.textContent = String(getTime.seconds).padStart(2, "0");
 
     // timerHours.textContent = getTime.hours;
     // timerMinutes.textContent = getTime.minutes;
@@ -60,9 +60,8 @@ const timer = (deadline) => {
         timerSeconds.textContent = getTime.seconds;
       }
     }
-
-    intervalId = setInterval(updateClock, 1000);
-    updateClock();
   };
+  intervalId = setInterval(updateClock, 1000);
+  updateClock();
 };
 export default timer;
