@@ -1,6 +1,17 @@
 const slider = () => {
+  const dotsContainer = document.querySelector(".portfolio-dots");
   const sliderBlock = document.querySelector(".portfolio-content");
   const slides = document.querySelectorAll(".portfolio-item");
+  // const dots = document.querySelectorAll(".dot");
+
+  slides.forEach((slide, index) => {
+    const dot = document.createElement("li");
+    dot.classList.add("dot");
+    if (index === 0) dot.classList.add("dot-active");
+    dotsContainer.appendChild(dot);
+    // dotsContainer.insertAdjacentHTML("beforeend", dotsHTML);
+  });
+
   const dots = document.querySelectorAll(".dot");
 
   let currentSlide = 0;
