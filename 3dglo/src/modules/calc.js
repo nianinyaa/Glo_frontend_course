@@ -1,17 +1,18 @@
-const calc = () => {
-  const numberInput = document
-    .querySelectorAll('input.calc-item[type="text"]')
-    .forEach((input) => {
-      input.addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, "");
+// !! рабочий вариант кода! (проверка на ввод только цифр в калькуляторе)
 
-        if (this.value == "" || this.value < 1) {
-          this.value = 1;
-        }
+const initCalculator = () => {
+  const calcInputs = document.querySelectorAll('input.calc-item[type="text"]')
+  calcInputs.forEach((input) => {
+    input.addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, "");
 
-        calculateTotal();
-      });
+      if (this.value == "" || this.value < 1) {
+        this.value = 1;
+      }
+
+      calculateTotal();
     });
+  });
 
   function calculateTotal() {
     const type = parseFloat(document.querySelector(".calc-type").value);
@@ -25,16 +26,14 @@ const calc = () => {
     document.getElementById("total").textContent = total;
   }
 
+  document.querySelector(".calc-type").addEventListener("change", calculateTotal); // здесь следит и отображает изменения селекта
   calculateTotal();
-
-  document
-    .querySelector(".calc-type")
-    .addEventListener("change", calculateTotal); // здесь следит и отображает изменения селекта
 };
 
-const textCyrillic = () => {
+const initCyrillicValidation = () => {
   const textInputs = document.querySelectorAll(
-    `input[type="text"], input.mess[placeholder="Ваше сообщение"]`
+        'input[type="text"][placeholder="Ваше имя"], ' +
+    'input[type="text"][placeholder="Ваше сообщение"]'
   );
 
   textInputs.forEach((input) => {
@@ -44,9 +43,7 @@ const textCyrillic = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", textCyrillic);
-
-const mailValidation = () => {
+const initEmailValidation = () => {
   const mailInputs = document.querySelectorAll(`input[type="email"]`);
 
   mailInputs.forEach((input) => {
@@ -56,16 +53,20 @@ const mailValidation = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", mailValidation);
 
-const numberValidation = () => {
+const initPhoneValidation = () => {
   const numberInput = document.querySelectorAll(`input[type="tel"]`);
 
   numberInput.forEach((input) => {
-    numberInput.addEventListener(input, function () {
-      this.value = this.value.replace(`[^\d()\-]/g`, "");
+    input.addEventListener("input", function () {
+      this.value = this.value.replace(/[^\d()\-]/g, "");
     });
   });
 };
 
-export default calc;
+export {
+  initCalculator,
+  initCyrillicValidation,
+  initEmailValidation,
+  initPhoneValidation,
+};

@@ -1,6 +1,34 @@
-const modal = () => {
-  const modal = document.querySelector(".popup");
-  const buttons = document.querySelectorAll(".popup-btn");
+import { animate } from "./helpers.js";
+
+const animateModal = () => {
+  const windowModal = document.querySelector('.popup-content')
+
+
+
+
+
+
+  const modal = () => {
+
+
+
+  
+setTimeout(() => {
+  animate({
+    duration: 1300,
+    timing(timeFraction){
+      return timeFraction
+    },
+    draw(progress){
+      windowModal.style.opacity = progress
+    }
+  })
+}, 2000)
+}
+}
+
+
+  const modal = document.querySelector(".popup");const buttons = document.querySelectorAll(".popup-btn");
   // const closeBtn = modal.querySelector(".popup-close");
 
   buttons.forEach((btn) => {
@@ -21,7 +49,6 @@ const modal = () => {
       modal.style.display = "none";
     }
   });
-};
 
 const modalWindow = () => {
   const modalWindow = document.querySelector(".popup"); // находим элементы
@@ -67,4 +94,11 @@ const modalWindow = () => {
   });
   window.addEventListener("resize", handleResize);
 };
-export default modal;
+
+
+modal()
+modalWindow()
+animateModal()
+// animateModal()
+
+export default modal,

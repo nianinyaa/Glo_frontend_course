@@ -40,15 +40,4 @@ const menu = () => {
   );
 };
 
-// const menuManage = () => {
-//   const menuBtn = document.querySelector(".menu");
-//   const menu = document.querySelector("menu");
-//   const closeBtn = menu.querySelector(".close-btn");
-//   const menuItems = menu.querySelectorAll("ul>li>a");
-
-//   const menuBtn = document.addEventListener("click", (e) => {
-//     console.log("menuBtn");
-//   });
-// };
-
 export default menu;
