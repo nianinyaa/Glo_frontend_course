@@ -1,0 +1,113 @@
+Async/Await, Try/Catch
+
+const getData = () => {
+    return fetch ('./db/users.json').then(res => res.json())  // выводится весь массив данных из файла 
+}
+
+getData().then(users => {
+    console.log(users )
+})     //обрабатываем результат выполнения функции 
+
+
+getData().then(users => {
+    const userId = users[1].id 
+
+    fetch(`./db/${userId}.json`) // выводится один элемент объекта по индексу 
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+})
+
+Если в будущем придется делать много запросов, которые зависят друг от друга 
+Чтобы в каждом методе then запрос fetch не делать, можно пользоваться методом Async
+
+
+МЕТОД Async
+
+const getData = async () => { //делаем функцию асинхронной, получаем в консоль promise. 
+//ответ через async получим в виде promise, который можно обработать через цепочку then   
+
+}
+
+console.log(getData()) // вместо этого напишем строчку ниже и получим то же в консоли - Alex
+
+
+getData().then(data => console.log(data)) 
+
+
+Async делает любую функцию асинхронной 
+
+const getData = async () => {
+    const response = fetch('./db/users.json')
+
+    console.log(response)// выводится не respons, а promise, решается через await
+}
+
+getData()
+
+---> 
+const getData = async () => {
+    const response = await fetch('./db/users.json')
+
+    console.log(response)// выводится не respons, а promise, решается через await
+}
+
+getData()
+
+
+await заставляет весь остальной код дождаться, пока не выполнится метода, к которому он привязан 
+
+доступно только в асинхронной функции 
+
+
+const getData = async (id) => {
+    const responseUsers = await fetch('./db/users.json')
+    const users = await responseUsers.json
+    const responseUser = await fetch (`./db/${users[id].id}.json`)
+
+    const user = await responseUser.json()
+
+    return user
+}
+
+getData(0).then(data => {
+    console.log(data)
+}).catch(error => {
+    console.log(error.message)
+})
+
+
+ПОДХОД Try
+
+блок Try выполняется при успешном выполнении
+catch - усли ошибка в Try
+
+const getData = async (id) => {
+ try{
+    const responseUsers = await fetch ('./db/users.json')
+    const users = await responseUsers.json()
+
+
+    if(users.length)
+
+    const responseUser = await fetch(`./db/${users[id].id}.js)
+
+    return await responseUser.json()
+
+ } catch(error){
+    throw new Error (error)
+ }
+}
+
+getData(0).then(data => {
+    console.log(data)
+}).catch(error => {
+    console.log(error.message)
+})
+
+
+Внутри блока Try мы можем провоцировать ошибки 
+ 
+
+

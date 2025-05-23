@@ -1,18 +1,16 @@
 import { animate } from "./helpers.js";
 
+// 1. animateModal, где захватываем само окно и кнопки со страницы, провнрка на наличие на странице, setTimeout - сама анимация прозрачности
+// 2. обработка открытия и закрытия окна и кнопок + нажатие на другие участки сайта 
+// 3. адаптация по условию размера экрана 
+// 4. запуск функций
+
+
 const animateModal = () => {
   const windowModal = document.querySelector('.popup-content')
+  if(!windowModal) return;
 
 
-
-
-
-
-  const modal = () => {
-
-
-
-  
 setTimeout(() => {
   animate({
     duration: 1300,
@@ -20,20 +18,49 @@ setTimeout(() => {
       return timeFraction
     },
     draw(progress){
-      windowModal.style.opacity = progress
+      windowModal.style.opacity = progress;
     }
-  })
+  });
 }, 2000)
-}
-}
+};
 
 
-  const modal = document.querySelector(".popup");const buttons = document.querySelectorAll(".popup-btn");
-  // const closeBtn = modal.querySelector(".popup-close");
+const startModal = () => { 
+  const modal = document.querySelector(".popup");
+  if (!modal) return;
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
+  const modalButtons = document.querySelectorAll(".popup-btn");
+  const closeButton = modal.querySelector(".popup-close");
+
+  modal.style.display = "none";
+  modal.style.opacity = "0";
+  modal.style.transition = "opacity 0.3s ease";
+
+
+  const openModalWindow = () => {
+    if (window.innerWidth >= 768) {
       modal.style.display = "block";
+      modal.style.top = `${window.innerHeight / 2 - modal.offsetHeight / 2}px`;
+      modal.style.left = `${window.innerWidth / 2 - modal.offsetWidth / 2}px`;
+
+      setTimeout(() => {
+        modal.style.opacity = "1";
+      }, 10);
+    }
+  };
+
+  const closeModalWindow = () => {
+    modal.style.opacity = "0";
+
+    setTimeout(() => {
+      modal.style.display = "none";
+    }, 300);
+  };
+
+
+  modalButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      openModalWindow();
     });
   });
 
@@ -44,43 +71,14 @@ setTimeout(() => {
   modal.addEventListener("click", (e) => {
     if (
       !e.target.closest(".popup-content") ||
-      e.target.classList.contains("popup-close")
-    ) {
-      modal.style.display = "none";
+      e.target.classList.contains("popup-close"))
+      {closeModalWindow()
     }
-  });
+  })
 
-const modalWindow = () => {
-  const modalWindow = document.querySelector(".popup"); // находим элементы
-  const closeButton = modalWindow.querySelector(".popup-close");
+  closeButton.addEventListener('click', () => closeModalWindow())
 
-  modalWindow.style.display = "none";
-  modalWindow.style.opacity = "0";
-  modalWindow.style.transition = "opacity 0.3s ease";
 
-  const openModalWindow = () => {
-    if (window.innerWidth >= 768) {
-      modalWindow.style.display = "block";
-      modalWindow.style.top = `${
-        window.innerHeight / 2 - modalWindow.offsetHeight / 2
-      }px`;
-      modalWindow.style.left = `${
-        window.innerWidth / 2 - modalWindow.offsetWidth / 2
-      }px`;
-
-      setTimeout(() => {
-        modalWindow.style.opacity = "1";
-      }, 10);
-    }
-  };
-
-  const closeModalWindow = () => {
-    modalWindow.style.opacity = "0";
-
-    setTimeout(() => {
-      modalWindow.style.display = "none"; //   modal.style.opacity = "0";
-    }, 300);
-  };
 
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -90,15 +88,17 @@ const modalWindow = () => {
 
   window.addEventListener("DOMContentLoaded", () => {
     setTimeout(openModalWindow, 1000);
-    closeButton.addEventListener("click", closeModalWindow);
+    animateModal();
   });
+
   window.addEventListener("resize", handleResize);
 };
 
+startModal()
 
-modal()
-modalWindow()
-animateModal()
 // animateModal()
 
-export default modal,
+export {
+  animateModal,
+  startModal
+}

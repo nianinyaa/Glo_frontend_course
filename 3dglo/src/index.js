@@ -1,6 +1,6 @@
 import timer from "./modules/timer.js";
 import menu from "./modules/menu.js";
-import modal from "./modules/modal.js";
+import {startModal} from "./modules/modal.js";
 import {initCalculator, initCyrillicValidation, initEmailValidation, initPhoneValidation} from "./modules/calc.js"
 import tabs from "./modules/tabs.js";
 import slider from "./modules/slider.js";
@@ -9,7 +9,7 @@ import calculator from "./modules/calculator.js";
 document.addEventListener("DOMContentLoaded", () => {
     timer("30 may 2025");
     menu();
-    modal();
+    startModal();
     initCalculator();
     initCyrillicValidation();
     initEmailValidation();
