@@ -5,6 +5,7 @@ import {initCalculator, initCyrillicValidation, initEmailValidation, initPhoneVa
 import tabs from "./modules/tabs.js";
 import slider from "./modules/slider.js";
 import calculator from "./modules/calculator.js";
+import sendForm from "./modules/sendForm.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     timer("30 may 2025");
@@ -17,5 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
     tabs();
     slider();
     calculator();
+    sendForm({
+      formId: 'form', 
+      someElem: [
+        {
+          type: 'block',
+          id: 'total'
+        }
+      ]})
   });
   

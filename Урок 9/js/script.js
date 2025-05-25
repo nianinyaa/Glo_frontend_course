@@ -165,18 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ".main-controls__views.screen"
   );
 
-  // Добавляем обработчики событий
-  buttons.forEach((btn) => {
-    if (btn.id === "start") {
-      btn.addEventListener("click", appData.startCalculation);
-    } else if (btn.id === "reset") {
-      btn.addEventListener("click", appData.resetCalculation);
-    }
-  });
-
-  plusButton.addEventListener("click", appData.addScreen);
-  inputElement.addEventListener("input", appData.updateRollbackValue);
-
   const appData = {
     title: "Калькулятор верстки",
     screens: [],
@@ -326,6 +314,18 @@ document.addEventListener("DOMContentLoaded", function () {
         this.servicePercentPrice;
     },
   };
+
+  // Добавляем обработчики событий
+  buttons.forEach((btn) => {
+    if (btn.id === "start") {
+      btn.addEventListener("click", appData.startCalculation);
+    } else if (btn.id === "reset") {
+      btn.addEventListener("click", appData.resetCalculation);
+    }
+  });
+
+  plusButton.addEventListener("click", appData.addScreen);
+  inputElement.addEventListener("input", appData.updateRollbackValue);
 
   // Показываем/скрываем поле для другого типа CMS
   document.getElementById("cms-open").addEventListener("change", function (e) {

@@ -1,5 +1,7 @@
 import { animate } from "./helpers.js";
 
+import sendForm from "./sendForm.js";
+
 // 1. animateModal, где захватываем само окно и кнопки со страницы, провнрка на наличие на странице, setTimeout - сама анимация прозрачности
 // 2. обработка открытия и закрытия окна и кнопок + нажатие на другие участки сайта 
 // 3. адаптация по условию размера экрана 
@@ -94,9 +96,25 @@ const startModal = () => {
   window.addEventListener("resize", handleResize);
 };
 
+
+const modalForm = document.getElementById("form3");
+
+if (modalForm) {
+  sendForm({
+    formId: "form3",
+    someElem: []
+  });
+
+  modalForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    closeModalWindow();
+  });
+}
+
 startModal()
 
 // animateModal()
+
 
 export {
   animateModal,

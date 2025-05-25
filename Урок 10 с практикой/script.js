@@ -66,7 +66,7 @@ ulElementTwo.innerHTML = "";
 rightOrderTwo.forEach((chapterTitle) => {
   for (let i = 0; i < chaptersTwo.length; i++) {
     if (chaptersTwo[i].textContent === chapterTitle) {
-      ulElementTwo.appendTwo(chaptersTwo[i]);
+      ulElementTwo.append(chaptersTwo[i]);
       break;
     }
   }

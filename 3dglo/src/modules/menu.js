@@ -1,3 +1,6 @@
+import sendForm from "./sendForm.js";
+
+
 const menu = () => {
   const menuBtn = document.querySelector(".menu");
   const menu = document.querySelector("menu");
@@ -39,5 +42,17 @@ const menu = () => {
     menuItem.addEventListener("click", handleMenu)
   );
 };
+
+
+//добавила ниже скрипт для оправки данных на сервер из формы внизу страницы. не знаю куда лучше это вставить 
+
+const footerForm = document.getElementById("form2");
+if (footerForm) {
+  footerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendForm(footerForm);
+    alert("Спасибо! Ваша заявка отправлена.");
+  });
+}
 
 export default menu;
